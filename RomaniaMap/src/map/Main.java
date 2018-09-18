@@ -11,10 +11,13 @@ public class Main {
         State state;
         int op;
         int ct;
+        int ini;
+        int fim;
 
         System.out.println("0 - Sair");
-        System.out.println("1 - Mostras Cidades");
-        System.out.println("2 - Mostras rodas de uma Cidade");
+        System.out.println("1 - Mostra Cidades");
+        System.out.println("2 - Mostrasrotas de uma Cidade");
+        System.out.println("3 - Mostra rota");
         op = sc.nextInt();
 
         while (op != 0){
@@ -25,10 +28,17 @@ public class Main {
                     System.out.println("Qual cidade deseja visualizar?");
                     ct = sc.nextInt();
                     c.route(ct);
+                case 3:
+                    System.out.println("Qual cidade deseja sair?");
+                    ini = sc.nextInt();
+                    System.out.println("Qual cidade deseja chegar?");
+                    fim = sc.nextInt();
+                    c.Buscar(ini,fim);
             }
             System.out.println("0 - Sair");
             System.out.println("1 - Mostras Cidades");
             System.out.println("2 - Mostras rodas de uma Cidade");
+            System.out.println("3 - Mostra rota");
             op = sc.nextInt();
         }
 //        System.out.println("");

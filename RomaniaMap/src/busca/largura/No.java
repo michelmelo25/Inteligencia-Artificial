@@ -9,7 +9,7 @@ public class No {
 
 	private State state;
 	private int custo;
-	private List<No> adj;
+	private List<State> adj;
 	
 	public No(State state, int custo) {
 		this.state = state;
@@ -33,16 +33,16 @@ public class No {
 		this.custo = custo;
 	}
 
-	public List<No> getAdj() {
+	public List<State> getAdj() {
 		return adj;
 	}
 
-	public void setAdj(List<No> adj) {
+	public void setAdj(List<State> adj) {
 		this.adj = adj;
 	}
 	
-	public void addAdj(No no) {
-		adj.add(no);
+	public void addAdj(State state) {
+		adj.add(state);
 	}
 	
 }
