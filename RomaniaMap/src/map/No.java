@@ -1,20 +1,26 @@
-package busca.largura;
+package map;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import map.*;
 
 public class No {
 
 	private State state;
 	private int custo;
+	private int h;
 	private List<State> adj;
+	
+	public No(State state, int custo, int h) {
+		this.state = state;
+		this.custo = custo;
+		this.h = h;
+		adj = new ArrayList<>();
+	}
 	
 	public No(State state, int custo) {
 		this.state = state;
 		this.custo = custo;
-		adj = new ArrayList<>();
+		this.adj = new ArrayList<>();
 	}
 
 	public State getState() {
@@ -45,4 +51,11 @@ public class No {
 		adj.add(state);
 	}
 	
+	public int getH() {
+		return h;
+	}
+	
+	public void setH(int h) {
+		this.h = h;
+	}
 }

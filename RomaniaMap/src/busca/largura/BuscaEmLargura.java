@@ -3,7 +3,9 @@ package busca.largura;
 import java.util.*;
 
 import map.Action;
+import map.No;
 import map.State;
+import util.Fila;
 
 public class BuscaEmLargura {
 
@@ -18,10 +20,10 @@ public class BuscaEmLargura {
 		this.ant = new HashMap<>();
 	}
 
-	public List<No> Busca(Problem problem){
-        No no = CriarNo(problem.getStateIni(),0);
-        if(no.getState().equals(problem.getStateFim())){
-            return Solucao(no,no);
+	public List<No> Busca(Problem problem) {
+        No no = CriarNo(problem.getStateIni(), 0);
+        if(no.getState().equals(problem.getStateFim())) {
+            return Solucao(no, no);
         }
 
         ant.put(no.getState(),no);
@@ -31,18 +33,17 @@ public class BuscaEmLargura {
         borda.insere(no);
         while (!borda.vazia()){
             No node = borda.remove();
-                explorados.add(node.getState());
-                for (State state: node.getAdj()) {
-                    No filho = CriarNo(state,node.getCusto()+Custo(node.getState(),state));
-
-                    if (!explorados.contains(filho.getState())){
-                        ant.put(filho.getState(),node);
-                        if(filho.getState().getNome().equals(problem.getStateFim().getNome())){
-                            return Solucao(no,filho);
-                        }
-                        borda.insere(filho);
+            explorados.add(node.getState());
+            for (State state: node.getAdj()) {
+            	No filho = CriarNo(state,node.getCusto()+Custo(node.getState(),state));
+            	if (!explorados.contains(filho.getState())) {
+            		ant.put(filho.getState(),node);
+                    if(filho.getState().getNome().equals(problem.getStateFim().getNome())) {
+                        return Solucao(no,filho);
                     }
+                    borda.insere(filho);
                 }
+        	}
         }
         return null;
 	}
@@ -53,7 +54,7 @@ public class BuscaEmLargura {
 	    solucao.add(fim);
 	    solucao.add(node);
 	    int i = 1;
-	    while (node.getState().getNome() != ini.getState().getNome()){
+	    while (node.getState().getNome() != ini.getState().getNome()) {
             System.out.println(i);
             i++;
 	        node = ant.get(node.getState());
@@ -67,7 +68,8 @@ public class BuscaEmLargura {
         for (Action a: actions) {
             if (a.getV().getNome().equals(state.getNome())){
                 no.addAdj(a.getU());
-            }else if(a.getU().getNome().equals(state.getNome())){
+            }
+            else if(a.getU().getNome().equals(state.getNome())){
                 no.addAdj(a.getV());
             }
         }
@@ -76,9 +78,10 @@ public class BuscaEmLargura {
 
     private int Custo(State s, State b){
         for (Action a: actions) {
-            if (a.getU().getNome().equals(s.getNome()) && a.getV().getNome().equals(b.getNome())){
+            if (a.getU().getNome().equals(s.getNome()) && a.getV().getNome().equals(b.getNome())) {
                 return  a.getWeight();
-            }else if(a.getV().getNome().equals(s.getNome()) && a.getU().getNome().equals(b.getNome())){
+            }
+            else if(a.getV().getNome().equals(s.getNome()) && a.getU().getNome().equals(b.getNome())) {
                 return a.getWeight();
             }
         }

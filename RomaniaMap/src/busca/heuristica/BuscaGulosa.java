@@ -1,22 +1,59 @@
 package busca.heuristica;
 
-import java.util.*;
-import busca.largura.*;
-import map.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import busca.largura.Problem;
+import map.Action;
+import map.No;
+import map.State;
+import util.FilaPrioridade;
 
 public class BuscaGulosa {
 	
-	private ArrayList<State> states;
+//	private ArrayList<State> states;
 	private ArrayList<Action> actions;
 	private HashMap<String, Integer> h;
+	private HashMap<String, No> solucao;
 	
 	
-	public BuscaGulosa() {
+	public BuscaGulosa(ArrayList<State> states, ArrayList<Action> actions) {
+//		this.states = states;
+		this.actions = actions;
+		this.solucao = new HashMap<>();
 		this.h = new HashMap<>();
 		this.initializeHeuristic();
 	}
-	public List<No> busca(Problem problem) {
+	public HashMap<String, No> busca(Problem problem) {
+		FilaPrioridade borda = new FilaPrioridade();
+		ArrayList<String> explorados = new ArrayList<>();
+		No no = criarNo(problem.getStateIni());
+		borda.inserir(no);
+		this.solucao.put(no.getState().getNome(), no);
+		if(no.getState().getNome().equals(problem.getStateFim().getNome())) {
+			return this.solucao;
+		}
 		
+		while(!borda.vazia()) {
+			No node = borda.remover();
+			explorados.add(node.getState().getNome());
+			if(node.getState().getNome().equals(problem.getStateFim().getNome())) {
+				return this.solucao;
+			}
+			for(State s : node.getAdj()) {
+				No filho = criarNo(s);
+				System.out.println(filho.getState().getNome()); // erase later
+				filho.setH(filho.getH() + node.getH());
+				if(!explorados.contains(filho.getState().getNome()) || !borda.contains(filho)) {
+					borda.add(filho);
+					this.solucao.put(filho.getState().getNome(), filho);
+				}
+				else if(borda.melhorarNo(filho)) {
+					this.solucao.put(filho.getState().getNome(), filho);
+				}
+			}
+		}
 		return null;
 	}
 	
@@ -42,4 +79,17 @@ public class BuscaGulosa {
     	this.h.put("Vaslui", 199);
     	this.h.put("Zerind", 374);
     }
+	
+	public No criarNo(State state) {		
+		No no = new No(state, 0, this.h.get(state.getNome()));
+		for(Action a : this.actions) {
+			if(a.getU().getNome().equals(no.getState().getNome())) {
+				no.addAdj(a.getU());
+			}
+			else if(a.getV().getNome().equals(no.getState().getNome())) {
+				no.addAdj(a.getV());
+			}
+		}
+		return no;
+	}
 }

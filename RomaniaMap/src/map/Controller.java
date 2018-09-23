@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import busca.heuristica.BuscaGulosa;
 import busca.largura.*;
 
 public class Controller {
@@ -13,6 +14,7 @@ public class Controller {
     private ArrayList<Action> actions;
     private Model model;
     private BuscaEmLargura buscaEmLargura;
+    private BuscaGulosa buscaGulosa;
 
     public Controller() {
         super();
@@ -22,12 +24,13 @@ public class Controller {
         initializeActions();
         this.model = new Model(states, actions);
         this.buscaEmLargura = new BuscaEmLargura(states,actions);
+        this.buscaGulosa = new BuscaGulosa(states, actions);
     }
 
     private void initializeStates() {
         State[] states1 = {
                 new State("Oradea"),
-                new State("Zerid"),
+                new State("Zerind"),
                 new State("Arad"),
                 new State("Timisoara"),
                 new State("Lugoj"),
@@ -85,19 +88,35 @@ public class Controller {
         }
     }
 
-    public void Buscar(int ini, int fim){
-        List<No> solucao = new ArrayList<>();
-        solucao = buscaEmLargura.Busca(new Problem(states.get(ini),states.get(fim)));
-        for (No node: solucao) {
-            System.out.println(node.getState().getNome());
-            System.out.println(node.getCusto());
+    public void buscar(int ini, int fim, String busca) {
+        if(busca.equals("largura")) {
+	    	List<No> solucao = new ArrayList<>();
+	        solucao = buscaEmLargura.Busca(new Problem(states.get(ini), states.get(fim)));
+	        for (No node: solucao) {
+	            System.out.println(node.getState().getNome());
+	            System.out.println(node.getCusto());
+	        }
+        }
+        else if(busca.equals("heuristica")) {
+        	HashMap<String, No> solucao = new HashMap<>();
+        	solucao = this.buscaGulosa.busca(new Problem(states.get(ini), states.get(fim)));
+        	for(No node : solucao.values()) {
+        		System.out.print("-> " + node.getState().getNome());
+        	}
+        	System.out.println("");
         }
     }
 
-    public void showStates(){ model.showStates();}
+    public void showStates() {
+    	model.showStates();
+    }
 
-    public void transicao(){ model.model();}
+    public void transicao() {
+    	model.model();
+    }
 
-    public  void route(int c){ model.sucessor(states.get(c));}
+    public  void route(int c) {
+    	model.sucessor(states.get(c));
+    }
     
 }
