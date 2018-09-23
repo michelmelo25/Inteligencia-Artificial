@@ -98,9 +98,9 @@ public class Controller {
 	        }
         }
         else if(busca.equals("heuristica")) {
-        	HashMap<String, No> solucao = new HashMap<>();
+        	ArrayList<No> solucao = new ArrayList<>();
         	solucao = this.buscaGulosa.busca(new Problem(states.get(ini), states.get(fim)));
-        	for(No node : solucao.values()) {
+        	for(No node : solucao) {
         		System.out.print("-> " + node.getState().getNome());
         	}
         	System.out.println("");

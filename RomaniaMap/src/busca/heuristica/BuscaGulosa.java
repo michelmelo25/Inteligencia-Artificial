@@ -15,22 +15,22 @@ public class BuscaGulosa {
 //	private ArrayList<State> states;
 	private ArrayList<Action> actions;
 	private HashMap<String, Integer> h;
-	private HashMap<String, No> solucao;
+	private ArrayList<No> solucao;
 	
 	
 	public BuscaGulosa(ArrayList<State> states, ArrayList<Action> actions) {
 //		this.states = states;
 		this.actions = actions;
-		this.solucao = new HashMap<>();
+		this.solucao = new ArrayList<>();
 		this.h = new HashMap<>();
 		this.initializeHeuristic();
 	}
-	public HashMap<String, No> busca(Problem problem) {
+	public ArrayList<No> busca(Problem problem) {
 		FilaPrioridade borda = new FilaPrioridade();
 		ArrayList<String> explorados = new ArrayList<>();
 		No no = criarNo(problem.getStateIni());
 		borda.inserir(no);
-		this.solucao.put(no.getState().getNome(), no);
+		this.solucao.add(no);
 		if(no.getState().getNome().equals(problem.getStateFim().getNome())) {
 			return this.solucao;
 		}
@@ -39,18 +39,18 @@ public class BuscaGulosa {
 			No node = borda.remover();
 			explorados.add(node.getState().getNome());
 			if(node.getState().getNome().equals(problem.getStateFim().getNome())) {
+				this.solucao.add(node);
 				return this.solucao;
 			}
 			for(State s : node.getAdj()) {
 				No filho = criarNo(s);
-				System.out.println(filho.getState().getNome()); // erase later
 				filho.setH(filho.getH() + node.getH());
 				if(!explorados.contains(filho.getState().getNome()) || !borda.contains(filho)) {
-					borda.add(filho);
-					this.solucao.put(filho.getState().getNome(), filho);
+					borda.inserir(filho);
+					this.solucao.add(filho);
 				}
-				else if(borda.melhorarNo(filho)) {
-					this.solucao.put(filho.getState().getNome(), filho);
+				else {
+					borda.melhorarNo(filho);
 				}
 			}
 		}
@@ -83,11 +83,11 @@ public class BuscaGulosa {
 	public No criarNo(State state) {		
 		No no = new No(state, 0, this.h.get(state.getNome()));
 		for(Action a : this.actions) {
-			if(a.getU().getNome().equals(no.getState().getNome())) {
-				no.addAdj(a.getU());
-			}
-			else if(a.getV().getNome().equals(no.getState().getNome())) {
+			if(a.getU().getNome().equals(state.getNome())) {
 				no.addAdj(a.getV());
+			}
+			else if(a.getV().getNome().equals(state.getNome())) {
+				no.addAdj(a.getU());
 			}
 		}
 		return no;
