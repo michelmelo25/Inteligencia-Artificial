@@ -24,16 +24,19 @@ public class Main {
             switch (op){
                 case 1:
                     c.showStates();
+                    break;
                 case 2:
                     System.out.println("Qual cidade deseja visualizar?");
                     ct = sc.nextInt();
                     c.route(ct);
+                    break;
                 case 3:
                     System.out.println("Qual cidade deseja sair?");
                     ini = sc.nextInt();
                     System.out.println("Qual cidade deseja chegar?");
                     fim = sc.nextInt();
-                    c.buscar(ini,fim, "heuristica");
+                    c.buscar(ini,fim, "largura");
+                    break;
             }
             System.out.println("0 - Sair");
             System.out.println("1 - Mostras Cidades");

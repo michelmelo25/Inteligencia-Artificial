@@ -55,7 +55,7 @@ public class BuscaEmLargura {
 	    solucao.add(node);
 	    int i = 1;
 	    while (node.getState().getNome() != ini.getState().getNome()) {
-            System.out.println(i);
+//            System.out.println(i);
             i++;
 	        node = ant.get(node.getState());
 	        solucao.add(node);

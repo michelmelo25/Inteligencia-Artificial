@@ -39,20 +39,20 @@ public class BuscaGulosa {
 			No node = borda.remover();
 			explorados.add(node.getState().getNome());
 			if(node.getState().getNome().equals(problem.getStateFim().getNome())) {
-				this.solucao.add(node);
 				return this.solucao;
 			}
+			No filho = null;
 			for(State s : node.getAdj()) {
-				No filho = criarNo(s);
-				filho.setH(filho.getH() + node.getH());
-				if(!explorados.contains(filho.getState().getNome()) || !borda.contains(filho)) {
-					borda.inserir(filho);
-					this.solucao.add(filho);
+				No other = criarNo(s);
+				if(filho == null) {
+					filho = other;
 				}
-				else {
-					borda.melhorarNo(filho);
+				else if (filho.getH() > other.getH()) {
+					filho = other;
 				}
 			}
+			this.solucao.add(filho);
+			borda.inserir(filho);
 		}
 		return null;
 	}
@@ -62,7 +62,7 @@ public class BuscaGulosa {
     	this.h.put("Bucharest", 0);
     	this.h.put("Craiova", 160);
     	this.h.put("Drobeta", 242);
-    	this.h.put("Efoire", 161);
+    	this.h.put("Eforie", 161);
     	this.h.put("Fagaras", 176);
     	this.h.put("Giurgiu", 77);
     	this.h.put("Hirsova", 151);
