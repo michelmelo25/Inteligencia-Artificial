@@ -1,12 +1,12 @@
 package map;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import busca.heuristica.BuscaAEstrela;
 import busca.heuristica.BuscaGulosa;
-import busca.largura.*;
+import busca.largura.BuscaEmLargura;
+import busca.largura.Problem;
 
 public class Controller {
 
@@ -15,6 +15,7 @@ public class Controller {
     private Model model;
     private BuscaEmLargura buscaEmLargura;
     private BuscaGulosa buscaGulosa;
+    private BuscaAEstrela buscaAEstrela;
 
     public Controller() {
         super();
@@ -25,6 +26,7 @@ public class Controller {
         this.model = new Model(states, actions);
         this.buscaEmLargura = new BuscaEmLargura(states,actions);
         this.buscaGulosa = new BuscaGulosa(states, actions);
+        this.buscaAEstrela = new BuscaAEstrela(states, actions);
     }
 
     private void initializeStates() {
@@ -93,14 +95,18 @@ public class Controller {
 	    	List<No> solucao = new ArrayList<>();
 	        solucao = buscaEmLargura.Busca(new Problem(states.get(ini), states.get(fim)));
 	        for (No node: solucao) {
-	            System.out.print(" <- " + node.getState().getNome());
-//	            System.out.println(node.getCusto());
+	            System.out.print("-> " + node.getState().getNome());
 	        }
 	        System.out.println("\n" + solucao.get(0).getCusto());
         }
-        else if(busca.equals("heuristica")) {
+        else {
         	ArrayList<No> solucao = new ArrayList<>();
-        	solucao = this.buscaGulosa.busca(new Problem(states.get(ini), states.get(fim)));
+        	if(busca.equals("gulosa")) {        		
+        		solucao = this.buscaGulosa.busca(new Problem(states.get(ini), states.get(fim)));
+        	}
+        	else if(busca.equals("a*")) {
+        		solucao = this.buscaAEstrela.busca(new Problem(states.get(ini), states.get(fim)));
+        	}
         	for(No node : solucao) {
         		System.out.print("-> " + node.getState().getNome());
         	}

@@ -35,7 +35,7 @@ public class Main {
                     ini = sc.nextInt();
                     System.out.println("Qual cidade deseja chegar?");
                     fim = sc.nextInt();
-                    c.buscar(ini,fim, "heuristica");
+                    c.buscar(ini,fim, "a*");
                     break;
             }
             System.out.println("0 - Sair");

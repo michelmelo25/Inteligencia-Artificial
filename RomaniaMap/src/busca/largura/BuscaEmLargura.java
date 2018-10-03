@@ -60,6 +60,7 @@ public class BuscaEmLargura {
 	        node = ant.get(node.getState());
 	        solucao.add(node);
         }
+	    Collections.reverse(solucao);
 	    return solucao;
     }
 

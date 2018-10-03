@@ -13,9 +13,9 @@ import util.FilaPrioridade;
 public class BuscaGulosa {
 	
 //	private ArrayList<State> states;
-	private ArrayList<Action> actions;
-	private HashMap<String, Integer> h;
-	private ArrayList<No> solucao;
+	protected ArrayList<Action> actions;
+	protected HashMap<String, Integer> h;
+	protected ArrayList<No> solucao;
 	
 	
 	public BuscaGulosa(ArrayList<State> states, ArrayList<Action> actions) {
