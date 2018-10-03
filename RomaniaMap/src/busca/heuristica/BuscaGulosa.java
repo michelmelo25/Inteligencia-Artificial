@@ -80,7 +80,7 @@ public class BuscaGulosa {
     	this.h.put("Zerind", 374);
     }
 	
-	public No criarNo(State state) {		
+	public No criarNo(State state) {
 		No no = new No(state, 0, this.h.get(state.getNome()));
 		for(Action a : this.actions) {
 			if(a.getU().getNome().equals(state.getNome())) {
