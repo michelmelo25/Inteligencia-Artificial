@@ -8,6 +8,8 @@ import busca.heuristica.BuscaGulosa;
 import busca.largura.BuscaEmLargura;
 import busca.largura.Problem;
 
+import util.Timer;
+
 public class Controller {
 
     private ArrayList<State> states;
@@ -93,24 +95,34 @@ public class Controller {
     public void buscar(int ini, int fim, String busca) {
         if(busca.equals("largura")) {
 	    	List<No> solucao = new ArrayList<>();
+	    	Timer timer = new Timer();
+	    	timer.start();
 	        solucao = buscaEmLargura.Busca(new Problem(states.get(ini), states.get(fim)));
+	        timer.stop();
 	        for (No node: solucao) {
 	            System.out.print("-> " + node.getState().getNome());
 	        }
 	        System.out.println("\n" + solucao.get(0).getCusto());
+	        System.out.println("Duração: " + timer.getDuration());
         }
         else {
         	ArrayList<No> solucao = new ArrayList<>();
-        	if(busca.equals("gulosa")) {        		
+        	Timer timer = new Timer();
+        	if(busca.equals("gulosa")) {
+    	    	timer.start();
         		solucao = this.buscaGulosa.busca(new Problem(states.get(ini), states.get(fim)));
+        		timer.stop();
         	}
         	else if(busca.equals("a*")) {
+    	    	timer.start();
         		solucao = this.buscaAEstrela.busca(new Problem(states.get(ini), states.get(fim)));
+        		timer.stop();
         	}
         	for(No node : solucao) {
         		System.out.print("-> " + node.getState().getNome());
         	}
         	System.out.println("\n" + solucao.get(solucao.size() - 1).getCusto());
+        	System.out.println("Duração: " + timer.getDuration());
         }
     }
 
