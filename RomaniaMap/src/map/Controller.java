@@ -92,23 +92,19 @@ public class Controller {
         if(busca.equals("largura")) {
 	    	List<No> solucao = new ArrayList<>();
 	        solucao = buscaEmLargura.Busca(new Problem(states.get(ini), states.get(fim)));
-	        int custo = 0;
 	        for (No node: solucao) {
-	        	custo += node.getCusto();
-	            System.out.print("-> " + node.getState().getNome());
+	            System.out.print(" <- " + node.getState().getNome());
 //	            System.out.println(node.getCusto());
 	        }
-	        System.out.println("\n" + custo);
+	        System.out.println("\n" + solucao.get(0).getCusto());
         }
         else if(busca.equals("heuristica")) {
         	ArrayList<No> solucao = new ArrayList<>();
-        	int custo = 0;
         	solucao = this.buscaGulosa.busca(new Problem(states.get(ini), states.get(fim)));
         	for(No node : solucao) {
-        		custo += node.getH();
         		System.out.print("-> " + node.getState().getNome());
         	}
-        	System.out.println("\n" + custo);
+        	System.out.println("\n" + solucao.get(solucao.size() - 1).getCusto());
         }
     }
 

@@ -44,6 +44,7 @@ public class BuscaGulosa {
 			No filho = null;
 			for(State s : node.getAdj()) {
 				No other = criarNo(s);
+				other.setCusto(custo(s, node.getState()) + node.getCusto());
 				if(filho == null) {
 					filho = other;
 				}
@@ -91,5 +92,16 @@ public class BuscaGulosa {
 			}
 		}
 		return no;
+	}
+	public int custo(State s, State b) {
+        for (Action a: this.actions) {
+            if (a.getU().getNome().equals(s.getNome()) && a.getV().getNome().equals(b.getNome())) {
+                return  a.getWeight();
+            }
+            else if(a.getV().getNome().equals(s.getNome()) && a.getU().getNome().equals(b.getNome())) {
+                return a.getWeight();
+            }
+        }
+        return 0;
 	}
 }
