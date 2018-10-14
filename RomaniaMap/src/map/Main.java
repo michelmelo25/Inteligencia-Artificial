@@ -35,7 +35,7 @@ public class Main {
                     ini = sc.nextInt();
                     System.out.println("Qual cidade deseja chegar?");
                     fim = sc.nextInt();
-                    c.buscar(ini,fim, "a*");
+                    c.buscar(ini,fim, "uniforme");
                     break;
             }
             System.out.println("0 - Sair");
@@ -44,6 +44,5 @@ public class Main {
             System.out.println("3 - Mostra rota");
             op = sc.nextInt();
         }
-//        System.out.println("");
 	}
 }
