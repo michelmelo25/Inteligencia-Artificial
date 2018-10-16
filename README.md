@@ -4,7 +4,7 @@ Repositório da Disciplina de Inteligência Artificial
 Codigos em [VacuumWorld](https://github.com/michelmelo25/Inteligencia-Artificial/tree/master/VacuumWorld) são refernetes a 
 [Atividades/lab1](https://github.com/michelmelo25/Inteligencia-Artificial/blob/master/Atividades/lab1.pdf).
 
-Codigos em [RomaniaMap](https://github.com/michelmelo25/Inteligencia-Artificial/tree/master/RomaniaMap) as atividades lab2 a lab4.
+Codigos em [RomaniaMap](https://github.com/michelmelo25/Inteligencia-Artificial/tree/master/RomaniaMap) as atividades lab2 a lab4. <br />
 [Atividades/lab2](https://github.com/michelmelo25/Inteligencia-Artificial/blob/master/Atividades/lab2.pdf) - [map](https://github.com/michelmelo25/Inteligencia-Artificial/tree/master/RomaniaMap/src/map)
 [Atividades/lab3](https://github.com/michelmelo25/Inteligencia-Artificial/blob/master/Atividades/lab3.pdf):
 [Largura](https://github.com/michelmelo25/Inteligencia-Artificial/tree/master/RomaniaMap/src/busca/largura)
