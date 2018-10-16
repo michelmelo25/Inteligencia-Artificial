@@ -1,11 +1,15 @@
 package map;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import busca.largura.*;
+import busca.heuristica.BuscaAEstrela;
+import busca.heuristica.BuscaGulosa;
+import busca.largura.BuscaEmLargura;
+import busca.largura.Problem;
+import busca.profundidade.BuscaProfundidade;
+import busca.uniforme.BuscaCustoUniforme;
+import util.Timer;
 
 public class Controller {
 
@@ -13,6 +17,10 @@ public class Controller {
     private ArrayList<Action> actions;
     private Model model;
     private BuscaEmLargura buscaEmLargura;
+    private BuscaGulosa buscaGulosa;
+    private BuscaAEstrela buscaAEstrela;
+    private BuscaCustoUniforme buscaCustoUniforme;
+    private BuscaProfundidade buscaProfundidade;
 
     public Controller() {
         super();
@@ -22,12 +30,16 @@ public class Controller {
         initializeActions();
         this.model = new Model(states, actions);
         this.buscaEmLargura = new BuscaEmLargura(states,actions);
+        this.buscaGulosa = new BuscaGulosa(states, actions);
+        this.buscaAEstrela = new BuscaAEstrela(states, actions);
+        this.buscaCustoUniforme = new BuscaCustoUniforme(states, actions);
+        this.buscaProfundidade = new BuscaProfundidade(states,actions);
     }
 
     private void initializeStates() {
         State[] states1 = {
                 new State("Oradea"),
-                new State("Zerid"),
+                new State("Zerind"),
                 new State("Arad"),
                 new State("Timisoara"),
                 new State("Lugoj"),
@@ -85,19 +97,59 @@ public class Controller {
         }
     }
 
-    public void Buscar(int ini, int fim){
-        List<No> solucao = new ArrayList<>();
-        solucao = buscaEmLargura.Busca(new Problem(states.get(ini),states.get(fim)));
-        for (No node: solucao) {
-            System.out.println(node.getState().getNome());
-            System.out.println(node.getCusto());
+    public void buscar(int ini, int fim, String busca) {
+        if(busca.equals("largura")) {
+	    	List<No> solucao;
+	    	Timer timer = new Timer();
+	    	timer.start();
+	        solucao = buscaEmLargura.Busca(new Problem(states.get(ini), states.get(fim)));
+	        timer.stop();
+	        for (No node: solucao) {
+	            System.out.print("-> " + node.getState().getNome());
+	        }
+	        System.out.println("\n" + solucao.get(0).getCusto());
+	        System.out.println("Duração: " + timer.getDuration() + " ms");
+        }
+        else {
+        	ArrayList<No> solucao = new ArrayList<>();
+        	Timer timer = new Timer();
+        	if(busca.equals("gulosa")) {
+    	    	timer.start();
+        		solucao = this.buscaGulosa.busca(new Problem(states.get(ini), states.get(fim)));
+        		timer.stop();
+        	}
+        	else if(busca.equals("a*")) {
+    	    	timer.start();
+        		solucao = this.buscaAEstrela.busca(new Problem(states.get(ini), states.get(fim)));
+        		timer.stop();
+        	}
+        	else if(busca.equals("uniforme")) {
+        		timer.start();
+        		solucao = this.buscaCustoUniforme.busca(new Problem(states.get(ini), states.get(fim)));
+        		timer.stop();
+        	}else if(busca.equals("profundidade")) {
+                timer.start();
+                solucao = this.buscaProfundidade.busca(new Problem(states.get(ini), states.get(fim)));
+                timer.stop();
+            }
+        	for(No node : solucao) {
+        		System.out.print("-> " + node.getState().getNome());
+        	}
+        	System.out.println("\n" + solucao.get(solucao.size() - 1).getCusto());
+        	System.out.println("Duração: " + timer.getDuration() + " ms");
         }
     }
 
-    public void showStates(){ model.showStates();}
+    public void showStates() {
+    	model.showStates();
+    }
 
-    public void transicao(){ model.model();}
+    public void transicao() {
+    	model.model();
+    }
 
-    public  void route(int c){ model.sucessor(states.get(c));}
+    public  void route(int c) {
+    	model.sucessor(states.get(c));
+    }
     
 }
