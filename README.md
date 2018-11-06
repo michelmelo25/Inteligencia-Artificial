@@ -24,6 +24,6 @@ problema das n-rainhas. <br />
 Produza um gráfico tempo de execução × n com 10 pontos. <br />
 use o comando time. <br />
 time minisat rainha10.txt outrainha10.txt <br />
-|real: |0m0.032s| |-------:|----------:| <br />
-|user: |0m0.030s| <br />
-|sys:  |0m0.010s| <br />
+real:  0m0.032s <br />
+user:  0m0.030s  <br />
+sys:   0m0.010s  <br />
