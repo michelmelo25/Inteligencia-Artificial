@@ -16,4 +16,14 @@ ________________________________________________________________________________
 [Guloso](https://github.com/michelmelo25/Inteligencia-Artificial/blob/master/RomaniaMap/src/busca/heuristica/BuscaGulosa.java)<br />
 [A*](https://github.com/michelmelo25/Inteligencia-Artificial/blob/master/RomaniaMap/src/busca/heuristica/BuscaAEstrela.java) <br />
 _______________________________________________________________________________________________________________________________
-
+[nrainha](https://github.com/michelmelo25/Inteligencia-Artificial/tree/master/nrainhas) <br />
+Escreva o programa nrainhas que:<br />
+recebe como entrada um número n ≥ 4 <br />
+gera como saída o arquivo com a CNF que representa o <br />
+problema das n-rainhas. <br />
+Produza um gráfico tempo de execução × n com 10 pontos. <br />
+use o comando time. <br />
+time minisat rainha10.txt outrainha10.txt <br />
+|real: |0m0.032s| <br />
+|user: |0m0.030s| <br />
+|sys:  |0m0.010s| <br />
